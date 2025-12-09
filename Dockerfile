@@ -1,19 +1,12 @@
-# Test web-app to use with Pluralsight courses and Docker Deep Dive book
-FROM alpine
-
-LABEL maintainer="nigelpoulton@hotmail.com"
-
-# Install Node and NPM
-RUN apk add --update nodejs npm curl
-
-# Copy app to /src
-COPY . /src
+FROM node:18-alpine
 
 WORKDIR /src
 
-# Install dependencies
-RUN  npm install
+COPY package*.json ./
+RUN npm install
 
-EXPOSE 8080
+COPY . .
+
+EXPOSE 8081
 
 ENTRYPOINT ["node", "./app.js"]
